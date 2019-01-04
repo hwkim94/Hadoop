@@ -1,5 +1,5 @@
 # Hadoop-Java
-- hadoop을 공부하며 수행했던 실습파일들 입니다.
+- hadoop을 공부하며 수행했던 실습파일들입니다.
 
 ### 환경
 - intelliJ IDEA
