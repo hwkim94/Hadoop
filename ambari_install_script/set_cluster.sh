@@ -8,12 +8,12 @@ scp_home=/home/centos
  
 function execAndSleep() {
         ./run_all.sh $@
-        echo "sleep 2 sec"
         sleep 2
 }
 
 function step0_say_yes_ssh() {
         sudo yum install -y expect
+        
         for server in `cat serverList`
         do
           ./ssh.exp -i ${pem_key} ${user}@${server}
@@ -22,6 +22,7 @@ function step0_say_yes_ssh() {
  
 function step1_setting_ssh() {
         ssh-keygen -t rsa -f ~/.ssh/id_rsa -P ''
+        
         mkdir -p ~/.ssh/temp
         cat ~/.ssh/authorized_keys >> ~/.ssh/temp/authorized_keys
         cat ~/.ssh/id_rsa.pub >> ~/.ssh/temp/authorized_keys
@@ -32,6 +33,7 @@ function step1_setting_ssh() {
  
 function step2_say_yes_ssh() {
         sudo yum install -y expect
+        
         for server in `cat serverList`
         do
           ./ssh.exp $server
@@ -68,6 +70,7 @@ function step4_set_hosts() {
         head -2 ~/temp/hosts > ~/temp/h
         sed -n '3,$ p' ~/temp//hosts | sort | uniq >> ~/temp/h
         mv ~/temp/h ~/temp/hosts
+        
         ./scp.sh $pem_key ~/temp/hosts $scp_home/hosts
         ./run_all.sh sudo mv -f ~/hosts /etc/hosts
 }
