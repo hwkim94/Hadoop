@@ -28,7 +28,6 @@ function step1_setting_ssh() {
         cat ~/.ssh/id_rsa.pub >> ~/.ssh/temp/authorized_keys
  
         ./scp.sh $pem_key ~/.ssh/temp/authorized_keys $scp_home/.ssh
-        rm -rf ~/.ssh/temp
 }
  
 function step2_say_yes_ssh() {
