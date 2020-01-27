@@ -22,6 +22,7 @@ function step1_init_mysql_server() {
 }
  
 function step2_install_ambari() {
+        sudo yum install -y wget
         sudo wget -nv http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.3.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
         sudo yum install -y ambari-server
         sudo /usr/sbin/ambari-server setup
