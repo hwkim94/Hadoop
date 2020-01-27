@@ -1,0 +1,6 @@
+#!/usr/bin/expect
+
+spawn ssh [lindex $argv 0] echo "Ok"
+expect "(yes/no)"
+send "yes\n"
+expect
