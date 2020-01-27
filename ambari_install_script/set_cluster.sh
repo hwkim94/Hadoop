@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PWD=$(cd `dirname $0` ; pwd)
+pem_key=~/kimhyunwoo_aws.pem
  
 function execAndSleep() {
         ./run_all.sh $@
@@ -13,7 +14,7 @@ function step1_setting_ssh() {
         mkdir -p ~/temp/.ssh
         cat ~/.ssh/id_rsa.pub > ~/temp/.ssh/authorized_keys
  
-        ./ssh.sh ~/kimhyunwoo_aws.pem  ~/temp/.ssh ~/.ssh
+        ./scp.sh $pem_key  ~/temp/.ssh ~/.ssh
         cp ~/temp/.ssh/authorized_keys ~/.ssh/
         rm -rf ~/.ssh/.ssh
 }
@@ -56,7 +57,7 @@ function step4_set_hosts() {
         head -2 ~/temp/hosts > ~/temp/h
         sed -n '3,$ p' ~/temp//hosts | sort | uniq >> ~/temp/h
         mv ~/temp/h ~/temp/hosts
-        ./ssh.sh ~/kimhyunwoo_aws.pem ~/temp/hosts ~/hosts
+        ./scp.sh $pem_key ~/temp/hosts ~/hosts
         ./run_all.sh sudo mv -f ~/hosts /etc/hosts
 }
  
