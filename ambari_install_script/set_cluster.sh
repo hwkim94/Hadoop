@@ -68,6 +68,6 @@ function step5_install_mysqlcli() {
  
 step1_setting_ssh
 step2_say_yes_ssh
-#step3_basic_setting
-#step4_set_hosts
-#step5_install_mysqlcli
+step3_basic_setting
+step4_set_hosts
+step5_install_mysqlcli
