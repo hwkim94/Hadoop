@@ -30,16 +30,7 @@ function step1_setting_ssh() {
         ./scp.sh $pem_key ~/.ssh/temp/authorized_keys $scp_home/.ssh
 }
  
-function step2_say_yes_ssh() {
-        sudo yum install -y expect
-        
-        for server in `cat serverList`
-        do
-          ./ssh.exp $server
-        done
-}
- 
-function step3_basic_setting() {
+function step2_basic_setting() {
         execAndSleep sudo chmod 700 ~/.ssh
         execAndSleep sudo chmod 600 ~/.ssh/authorized_keys
         execAndSleep sudo yum install -y ntp
@@ -53,7 +44,7 @@ function step3_basic_setting() {
 }
  
 # /etc/hosts
-function step4_set_hosts() {
+function step3_set_hosts() {
         mkdir -p ~/temp
         cp /etc/hosts ~/temp/hosts
         cp /etc/hosts ~/temp/hosts.backup
@@ -74,13 +65,12 @@ function step4_set_hosts() {
         ./run_all.sh sudo mv -f ~/hosts /etc/hosts
 }
  
-function step5_install_mysqlcli() {
+function step4_install_mysqlcli() {
      ./run_all.sh sudo yum install -y mysql-connector-java*
 }
 
 step0_say_yes_ssh
 step1_setting_ssh
-step2_say_yes_ssh
-step3_basic_setting
-step4_set_hosts
-step5_install_mysqlcli
+step2_basic_setting
+step3_set_hosts
+step4_install_mysqlcli
