@@ -16,7 +16,7 @@ function step0_say_yes_ssh() {
         
         for server in `cat serverList`
         do
-          ./ssh.exp -i ${pem_key} ${user}@${server}
+          ./ssh.exp ${pem_key} ${user}@${server}
         done
 }
  
