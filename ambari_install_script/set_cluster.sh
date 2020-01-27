@@ -1,6 +1,8 @@
 #!/bin/bash
 
 PWD=$(cd `dirname $0` ; pwd)
+
+user=centos
 pem_key=~/kimhyunwoo_aws.pem
 scp_home=/home/centos
  
@@ -8,6 +10,14 @@ function execAndSleep() {
         ./run_all.sh $@
         echo "sleep 2 sec"
         sleep 2
+}
+
+function step0_say_yes_ssh() {
+        sudo yum install -y expect
+        for server in `cat serverList`
+        do
+          ./ssh.exp -i ${pem_key} ${user}@${server}
+        done
 }
  
 function step1_setting_ssh() {
@@ -65,7 +75,8 @@ function step4_set_hosts() {
 function step5_install_mysqlcli() {
      ./run_all.sh sudo yum install -y mysql-connector-java*
 }
- 
+
+step0_say_yes_ssh
 step1_setting_ssh
 step2_say_yes_ssh
 step3_basic_setting
