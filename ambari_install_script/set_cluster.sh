@@ -2,6 +2,7 @@
 
 PWD=$(cd `dirname $0` ; pwd)
 pem_key=~/kimhyunwoo_aws.pem
+scp_home=/home/centos
  
 function execAndSleep() {
         ./run_all.sh $@
@@ -14,7 +15,7 @@ function step1_setting_ssh() {
         mkdir -p ~/temp/.ssh
         cat ~/.ssh/id_rsa.pub > ~/temp/.ssh/authorized_keys
  
-        ./scp.sh $pem_key  ~/temp/.ssh ~/.ssh
+        ./scp.sh $pem_key ~/temp/.ssh $scp_home/.ssh
         cp ~/temp/.ssh/authorized_keys ~/.ssh/
         rm -rf ~/.ssh/.ssh
 }
@@ -57,7 +58,7 @@ function step4_set_hosts() {
         head -2 ~/temp/hosts > ~/temp/h
         sed -n '3,$ p' ~/temp//hosts | sort | uniq >> ~/temp/h
         mv ~/temp/h ~/temp/hosts
-        ./scp.sh $pem_key ~/temp/hosts ~/hosts
+        ./scp.sh $pem_key ~/temp/hosts $scp_home/hosts
         ./run_all.sh sudo mv -f ~/hosts /etc/hosts
 }
  
@@ -67,6 +68,6 @@ function step5_install_mysqlcli() {
  
 step1_setting_ssh
 step2_say_yes_ssh
-step3_basic_setting
-step4_set_hosts
-step5_install_mysqlcli
+#step3_basic_setting
+#step4_set_hosts
+#step5_install_mysqlcli
