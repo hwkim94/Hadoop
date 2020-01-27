@@ -15,6 +15,6 @@ destination_path=$3
 
 for slave in `egrep -v "^#" $PWD/serverList`
 do
-        echo "rcp to $slave ..."
+        echo "scp -i ${pem_key} -r ${source_path} ${user_name}@${slave}:${destination_path}"
         scp -i ${pem_key} -r ${source_path} ${user_name}@${slave}:${destination_path} &
 done
