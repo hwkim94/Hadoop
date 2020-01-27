@@ -22,12 +22,12 @@ function step0_say_yes_ssh() {
  
 function step1_setting_ssh() {
         ssh-keygen -t rsa -f ~/.ssh/id_rsa -P ''
-        mkdir -p ~/temp/.ssh
-        cat ~/.ssh/id_rsa.pub > ~/temp/.ssh/authorized_keys
+        mkdir -p ~/.ssh/temp
+        cat ~/.ssh/authorized_keys >> ~/.ssh/temp/authorized_keys
+        cat ~/.ssh/id_rsa.pub >> ~/.ssh/temp/authorized_keys
  
-        ./scp.sh $pem_key ~/temp/.ssh $scp_home/.ssh
-        cp ~/temp/.ssh/authorized_keys ~/.ssh/
-        rm -rf ~/.ssh/.ssh
+        ./scp.sh $pem_key ~/.ssh/temp/authorized_keys $scp_home/.ssh
+        rm -rf ~/.ssh/temp
 }
  
 function step2_say_yes_ssh() {
