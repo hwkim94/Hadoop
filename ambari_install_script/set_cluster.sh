@@ -3,7 +3,7 @@
 PWD=$(cd `dirname $0` ; pwd)
 
 user=centos
-pem_key=~/kimhyunwoo_aws.pem
+pem_key=~/kim_hyun_woo.pem
 scp_home=/home/centos
  
 function execAndSleep() {
@@ -12,7 +12,9 @@ function execAndSleep() {
 }
 
 function step0_say_yes_ssh() {
+	echo "------------step0------------"
         sudo yum install -y expect
+	rm -rf ~/.ssh/known_hosts
         
         for server in `cat serverList`
         do
@@ -21,6 +23,7 @@ function step0_say_yes_ssh() {
 }
  
 function step1_setting_ssh() {
+	echo "------------step1------------"
         ssh-keygen -t rsa -f ~/.ssh/id_rsa -P ''
         
         mkdir -p ~/.ssh/temp
@@ -31,6 +34,7 @@ function step1_setting_ssh() {
 }
  
 function step2_basic_setting() {
+	echo "------------step2------------"
         execAndSleep sudo chmod 700 ~/.ssh
         execAndSleep sudo chmod 600 ~/.ssh/authorized_keys
         execAndSleep sudo yum install -y ntp
@@ -45,6 +49,7 @@ function step2_basic_setting() {
  
 # /etc/hosts
 function step3_set_hosts() {
+	echo "------------step3------------"
         mkdir -p ~/temp
         cp /etc/hosts ~/temp/hosts
         cp /etc/hosts ~/temp/hosts.backup
@@ -66,7 +71,8 @@ function step3_set_hosts() {
 }
  
 function step4_install_mysqlcli() {
-     ./run_all.sh sudo yum install -y mysql-connector-java*
+	echo "------------step4------------"
+	./run_all.sh sudo yum install -y mysql-connector-java*
 }
 
 step0_say_yes_ssh
@@ -74,3 +80,5 @@ step1_setting_ssh
 step2_basic_setting
 step3_set_hosts
 step4_install_mysqlcli
+
+echo "FINISHED!!"

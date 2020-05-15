@@ -30,11 +30,11 @@ function step2_install_ambari() {
 }
 function step3_init_ambari_db() {
         mysql -uambari -padmin1234 ambari < /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
-        /usr/sbin/ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
+        sudo /usr/sbin/ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
 }
  
 function step4_start_ambari() {
-        /usr/sbin/ambari-server start
+        sudo /usr/sbin/ambari-server start
 }
  
  
